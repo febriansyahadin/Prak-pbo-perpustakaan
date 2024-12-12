@@ -99,6 +99,7 @@ public class FrmKategori extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("FORM Kategori");
 
         jLabel1.setText("ID Kategori");
 

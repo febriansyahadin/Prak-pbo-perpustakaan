@@ -93,4 +93,9 @@ public static ResultSet selectQuery(String query)
     }
     return rs;
     }
+
+    static Object getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+
