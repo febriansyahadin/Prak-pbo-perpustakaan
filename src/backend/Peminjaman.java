@@ -157,51 +157,7 @@ public class Peminjaman {
     }
     return listPeminjaman;
 }
-
-
-    public ArrayList<Peminjaman> search(String keyword) {
-    ArrayList<Peminjaman> listPeminjaman = new ArrayList<>();
-    String query = "SELECT p.idpeminjaman, p.tanggalpinjam, p.tanggalkembali, " +
-                   "a.idanggota, a.nama AS nama_anggota, " +
-                   "b.idbuku, b.judul AS judul_buku, " +
-                   "p.idpegawai " + // Tambahkan kolom idpegawai
-                   "FROM peminjaman p " +
-                   "LEFT JOIN anggota a ON p.idanggota = a.idanggota " +
-                   "LEFT JOIN buku b ON p.idbuku = b.idbuku " +
-                   "WHERE p.idpeminjaman LIKE '%" + keyword + "%' " +
-                   "OR b.idbuku LIKE '%" + keyword + "%' " +
-                   "OR p.tanggalpinjam LIKE '%" + keyword + "%' " +
-                   "OR a.nama LIKE '%" + keyword + "%'"; // Tambahkan pencarian berdasarkan nama anggota
-
-    ResultSet rs = DBHelper.selectQuery(query);
-
-    try {
-        while (rs.next()) {
-            Peminjaman peminjaman = new Peminjaman();
-            peminjaman.setIdPeminjaman(rs.getInt("idpeminjaman"));
-
-            Anggota anggota = new Anggota().getById(rs.getInt("idanggota"));
-            Buku buku = new Buku().getById(rs.getInt("idbuku"));
-            
-            Pegawai pegawai = new Pegawai().getById(rs.getInt("idpegawai"));
-
-            peminjaman.setAnggota(anggota);
-            peminjaman.setBuku(buku);
-            peminjaman.setTanggalPinjam(rs.getString("tanggalpinjam"));
-            peminjaman.setTanggalKembali(rs.getString("tanggalkembali"));
-            peminjaman.setPegawai(pegawai);
-
-            listPeminjaman.add(peminjaman);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return listPeminjaman;
-}
-
-
-
-
+    
 public void save() {
     String SQL;
     SQL = "INSERT INTO peminjaman (idanggota, idbuku, tanggalpinjam, tanggalkembali, idpegawai) VALUES ("
@@ -227,7 +183,6 @@ public void save() {
 public void update() {
     String SQL;
     SQL = "UPDATE peminjaman SET "
-            + "idpegawai = " + this.getPegawai().getIdPegawai() + ", "
             + "tanggalkembali = '" + this.getTanggalKembali() + "' "
             + "WHERE idpeminjaman = '" + this.idPeminjaman + "'";
 
